@@ -11,9 +11,13 @@ INTERVAL=1.0/FRAMERATE
 
 # Push scrollback out of the way so we don't nuke the terminal history
 sys.stdout.write('\033[H\033[2J')
-with open('apple.txt', 'r') as f:
-    while screen:=f.readlines(WIDTH*HEIGHT):
-        # Omit the final newline to avoid blank line at the bottom
-        sys.stdout.write(CLEAR + "".join(screen)[:-2])
-        sys.stdout.flush()
-        time.sleep(INTERVAL)
+try:
+    with open('apple.txt', 'r') as f:
+        while screen:=f.readlines(WIDTH*HEIGHT):
+            # Omit the final newline to avoid blank line at the bottom
+            sys.stdout.write(CLEAR + "".join(screen)[:-2])
+            sys.stdout.flush()
+            time.sleep(INTERVAL)
+except KeyboardInterrupt:
+    pass
+sys.stdout.write('\n')
